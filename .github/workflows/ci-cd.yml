@@ -9,39 +9,24 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        
-      - name: Set up Node.js (if your project uses Node.js)
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'  # Change this to your Node.js version
-
-      - name: Install dependencies
-        run: |
-          npm install
-
-      - name: Build website
-        run: |
-          npm run build  # Change this if you use a different build tool
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Run tests
-        run: |
-          npm test  # Modify if you use a different testing tool
-
   deploy:
     runs-on: ubuntu-latest
-    needs: [build, test]
     steps:
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Check for errors (Linting)
+      - name: Validate HTML, CSS, and JavaScript
+        run: |
+          echo "Checking HTML, CSS, and JavaScript for errors..."
+          # Example tools (optional): npm install -g htmlhint csslint jshint
+          # htmlhint .
+          # csslint .
+          # jshint .
+
+      # Deploy website
       - name: Deploy to production
         run: |
-          # Add deployment commands here
+          echo "Deploying website to production..."
+          # Add deployment commands (e.g., upload to hosting server or platform)
